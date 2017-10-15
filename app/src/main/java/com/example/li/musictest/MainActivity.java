@@ -10,6 +10,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+/**
+ * @author: Frank
+ * @time: 2017/10/14 19:01
+ * 实现的主要功能:主activity
+ */
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Intent intent;
@@ -28,9 +34,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        //activity页面的相关点击操作
         switch (v.getId()){
+            //播放
             case R.id.play:
                 if (musicService == null) {
+                    //首次播放绑定服务
                     intent = new Intent(MainActivity.this,MusicService.class);
                     bindService(intent,myConnection, Context.BIND_AUTO_CREATE);
                     startService(intent);
@@ -38,11 +47,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     musicService.play();
                 }
                 break;
+            //暂停
             case R.id.pause:
                 if (musicService != null){
                     musicService.pause();
                 }
                 break;
+            //停止
             case R.id.stop:
                 if (musicService != null){
                     musicService.stop();
@@ -53,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-    class MusicConnection implements ServiceConnection {
+    private class MusicConnection implements ServiceConnection {
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {

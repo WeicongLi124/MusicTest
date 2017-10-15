@@ -16,12 +16,16 @@ public class MusicReceiver extends BroadcastReceiver{
     public void onReceive(Context context, Intent intent) {
         String ctrl_code = intent.getAction();
         if ("play".equals(ctrl_code)){
+            //通知栏音乐播放操作
             MusicService.play();
         }else if ("pause".equals(ctrl_code)){
+            //通知栏音乐暂停操作
             MusicService.pause();
         }else if ("stop".equals(ctrl_code)){
+            //通知栏音乐停止操作
             MusicService.stop();
-        }else if ("dead".equals(ctrl_code)){
+        }else if ("clear".equals(ctrl_code)){
+            //通知栏关闭通知操作
             MusicService.clearNotification();
             MusicService.stop();
         }

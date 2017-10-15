@@ -27,7 +27,7 @@
                 <action android:name="play"/>
                 <action android:name="pause"/>
                 <action android:name="stop"/>
-                <action android:name="dead"/>
+                <action android:name="clear"/>
             </intent-filter>
         </receiver>
     </application>

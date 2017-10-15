@@ -15,6 +15,12 @@ import android.widget.RemoteViews;
 
 import java.io.IOException;
 
+/**
+ * @author: Frank
+ * @time: 2017/10/14 18:30
+ * 实现的主要功能:音乐播放服务
+ */
+
 public class MusicService extends Service {
     private static MediaPlayer mediaPlayer; //声明操作媒体的对象
     static int pos = 0; //记录播放的位置
@@ -24,6 +30,7 @@ public class MusicService extends Service {
 
     class MyBinder extends Binder{
         public MusicService getService(){
+            //绑定服务同时进行播放
             play();
             return MusicService.this;
         }
@@ -61,10 +68,10 @@ public class MusicService extends Service {
                     mediaPlayer.seekTo(pos);
                     mediaPlayer.start();
                 }else {
-                    //从头播放
+                    //首次或从头播放，并显示通知
                     notificationManager.notify(200,notification);
                     mediaPlayer.stop();
-                    mediaPlayer.prepare();//启动之前先prepare
+                    mediaPlayer.prepare();
                     mediaPlayer.start();
                 }
             } catch (IOException e) {
@@ -86,7 +93,7 @@ public class MusicService extends Service {
     public static void stop(){
         if (mediaPlayer != null){
             mediaPlayer.stop();
-            pos = 0;
+            pos = 0; //停止后播放位置置为0
         }
     }
 
@@ -94,7 +101,7 @@ public class MusicService extends Service {
     public void showMusicNotification(){
         Notification.Builder builder = new Notification.Builder(this);
         RemoteViews remoteViews = new RemoteViews(getPackageName(),R.layout.notification);
-        remoteViews.setImageViewResource(R.id.image,R.mipmap.ic_launcher);
+        remoteViews.setImageViewResource(R.id.image,R.drawable.timg);
         builder.setContent(remoteViews)
                 .setWhen(System.currentTimeMillis())
                 .setTicker("正在播放")
@@ -103,20 +110,20 @@ public class MusicService extends Service {
                 .setOngoing(true)
                 .setSmallIcon(R.mipmap.ic_launcher);
 
-        //通知栏控制器播放按钮
+        //通知栏控制器播放按钮广播操作
         Intent intentPlay = new Intent("play");//新建意图，设置action标记为“play”，用于接收广播时过滤意图信息
         PendingIntent playPendingIntent = PendingIntent.getBroadcast(this,0,intentPlay,0);
         remoteViews.setOnClickPendingIntent(R.id.play,playPendingIntent);//为play控件注册事件
-        //通知栏控制器暂停按钮
+        //通知栏控制器暂停按钮广播操作
         Intent intentPause = new Intent("pause");
         PendingIntent pausePendingIntent = PendingIntent.getBroadcast(this,0,intentPause,0);
         remoteViews.setOnClickPendingIntent(R.id.pause,pausePendingIntent);
-        //通知栏控制器停止按钮
+        //通知栏控制器停止按钮广播操作
         Intent intentStop = new Intent("stop");
         PendingIntent stopPendingIntent = PendingIntent.getBroadcast(this,0,intentStop,0);
         remoteViews.setOnClickPendingIntent(R.id.stop,stopPendingIntent);
-        ////通知栏控制器关闭通知按钮
-        Intent intentDead = new Intent("dead");
+        ////通知栏控制器关闭通知按钮广播操作
+        Intent intentDead = new Intent("clear");
         PendingIntent deadPendingIntent = PendingIntent.getBroadcast(this,0,intentDead,0);
         remoteViews.setOnClickPendingIntent(R.id.dead,deadPendingIntent);
 
