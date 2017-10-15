@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="80dp">
+    <ImageView
+        android:layout_marginTop="5dp"
+        android:id="@+id/image"
+        android:src="@mipmap/ic_launcher"
+        android:layout_width="80dp"
+        android:layout_height="80dp" />
+    <LinearLayout
+        android:layout_centerInParent="true"
+        android:layout_toRightOf="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="30dp"
+            android:src="@drawable/play"
+            android:id="@+id/play"
+            android:text="播放"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+        <ImageView
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="40dp"
+            android:src="@drawable/pause"
+            android:id="@+id/pause"
+            android:text="暂停"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+        <ImageView
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="40dp"
+            android:src="@drawable/stop"
+            android:id="@+id/stop"
+            android:text="停止"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+            <ImageView
+                android:layout_centerInParent="true"
+                android:id="@+id/dead"
+                android:src="@drawable/cha"
+                android:layout_width="35dp"
+                android:layout_height="35dp" />
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>
